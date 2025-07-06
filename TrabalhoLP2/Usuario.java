@@ -12,6 +12,7 @@ public class Usuario {
 	
     private int id;
     private String nome;
+    public static Usuario usuarioLogado = null;
     private static ArrayList<Usuario> usuarios = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
 	
@@ -43,6 +44,7 @@ public class Usuario {
 	            if (partes.length == 2) {
 	                String nomeExistente = partes[1];
 	                if (nomeExistente.equalsIgnoreCase(nomeLogin)) {
+	                	usuarioLogado = new Usuario(Integer.parseInt(partes[0]), nomeExistente);
 	                    System.out.println("Login realizado com sucesso.");
 	                    return true;
 	                }
@@ -53,7 +55,7 @@ public class Usuario {
 	    }
 	    System.out.println("Usuário não encontrado.");
 	    return false;
-}
+	}
 	
 	public static boolean criarConta() {
 		
@@ -67,6 +69,7 @@ public class Usuario {
 		        String[] partes = linha.split("\\|");
 		        int idExistente = Integer.parseInt(partes[0]);
 		        String nomeExistente = partes[1];
+		        usuarioLogado = new Usuario(Integer.parseInt(partes[0]), nomeExistente);
 		        usuarios.add(new Usuario(idExistente, nomeExistente));
 		    }
 		} catch (IOException e) {
