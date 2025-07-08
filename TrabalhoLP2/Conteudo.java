@@ -8,21 +8,19 @@ public class Conteudo {
     protected String conteudo;
     protected String dataPublicacao;
 
-    public Conteudo(String autor, String conteudo) {
+    public Conteudo(String conteudo, String autor) {
         this.autor = autor;
         this.conteudo = conteudo;
 
         // Lógica da DATA para não ficar criando sempre a data tudo que for conteudo herda
         // da class conteudo esse sistema de data para data da publicação
         LocalDateTime hora = LocalDateTime.now();
-        DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         this.dataPublicacao = hora.format(formatador);
     }
 
-    public String getAutor(){return autor;}
     public String getConteudo(){return conteudo;}
+    public String getAutor(){return autor;}
     public String getDataPublicacao(){return dataPublicacao;}
-
-
 
 }

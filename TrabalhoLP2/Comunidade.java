@@ -1,7 +1,6 @@
 package TrabalhoLP2;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Comunidade {
     public static final String ANSI_RED = "\u001B[31m";
@@ -9,7 +8,6 @@ public class Comunidade {
     private final CategoriasComunidade categoria;
     private int proximoIdPost = 1;
     private List<Post> posts;
-    private static Scanner scanner = new Scanner(System.in);
 
 
     public Comunidade (CategoriasComunidade categoria){
@@ -20,8 +18,6 @@ public class Comunidade {
     public CategoriasComunidade getCategoria(){
         return categoria;
     }
-
-
 
     public void criarEAdicionarPost(String autor, String titulo, String conteudo) {
         Post novoPost = new Post(autor, titulo, conteudo, proximoIdPost++);
@@ -44,6 +40,16 @@ public class Comunidade {
             }
         }
     }
+    
+    public Post getPostPorId(int id) {
+        for (Post post : posts) {
+            if (post.getIdPost() == id) {
+                return post;
+            }
+        }
+        return null;
+    }
+
 
    public int getQntdPosts(){
         return posts.size();

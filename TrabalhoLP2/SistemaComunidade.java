@@ -24,17 +24,18 @@ public class SistemaComunidade {
     }
 
     public void menuComunidades() {
-        System.out.println("===========ESCOLHA UMA COMUNIDADE PARA ENTRAR===============");
+        System.out.println("=============ESCOLHA UMA COMUNIDADE PARA ENTRAR=================");
         for (int i = 0; i < comunidades.size(); i++) {
             // Após o sort faço um print do resumo de cada Comunidade em ordem afalbetica provando que o sort funcionou
             System.out.print((i + 1)+"-");
             comunidades.get(i).exibirResumo();
             System.out.println("--------------------------------------------------------------");
         }
-        System.out.println("==========================================================\n");
+        System.out.println("==============================================================\n");
     }
+
     public void carregarPostsDeArquivo(String nomeDoArquivo) {
-        System.out.println("Iniciando carregamento de posts do arquivo: " + nomeDoArquivo);
+        System.out.println("Iniciando carregamento de posts do arquivo: ");
         Path caminhoDoArquivo = Paths.get(nomeDoArquivo);
 
         // Usamos try-with-resources para garantir que o leitor de arquivo seja fechado automaticamente.
@@ -75,6 +76,7 @@ public class SistemaComunidade {
              e.printStackTrace();
         }
     }
+    
     private Comunidade encontrarComunidadePorNome(String nome) {
         for (Comunidade comunidade : this.comunidades) {
             if (comunidade.getCategoria().name().equalsIgnoreCase(nome)) {
@@ -84,6 +86,13 @@ public class SistemaComunidade {
         return null;
     }
 
+    public Comunidade getComunidadePorIndice(int indice) {
+        if (indice >= 1 && indice <= comunidades.size()) {
+            return comunidades.get(indice - 1);
+        }
+        return null;
+    }
+    
     public void gerenciarComunidade (int opcao, Usuario usuario){
         while (opcao<1 || opcao>comunidades.size()){
             System.out.println("Opção inválida! Escolha um número presente na lista.");
@@ -105,7 +114,7 @@ public class SistemaComunidade {
             System.out.println("Digite o conteúdo do Post");
             String conteudo = scanner.nextLine();
 
-            comunidadeEscolhida.criarEAdicionarPost( usuario.getNome(),titulo, conteudo);
+            comunidadeEscolhida.criarEAdicionarPost(usuario.getNome(),titulo, conteudo);
 
         }
         if(acao.toLowerCase().equals("ver")){

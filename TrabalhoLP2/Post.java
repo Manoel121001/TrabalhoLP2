@@ -1,41 +1,58 @@
 package TrabalhoLP2;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.List;
 
-public class Post extends Conteudo{
-	// O primeiro post inicia com id 1
-	private static int proximoId = 1;
-	private String tituloPost;
+public class Post extends Conteudo {
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_RESET = "\u001B[0m";
+
+    private String tituloPost;
     private int idPost;
-//    private static ArrayList<Comentarios> comentarios = new ArrayList<>();
-    private static Scanner scanner = new Scanner(System.in);
-  
-    public Post(String autor, String tituloPost, String subtexto, int idPost) {
-		super(autor, subtexto);
-		this.tituloPost = tituloPost;
-		this.idPost = idPost;
-		// Aqui o post recebe o proximoID (Sendo o primeiro 1 e itera em proximo id +1 o proximo já recebe 2)
-	}
+    private int proximoIdComentario = 1;
+    private List<Comentario> comentarios;
 
-	public String getTituloPost() {
-		return tituloPost;
-	}
-
-
-	public int getIdPost() {
-		return idPost;
-	}
-   // CADA POST DENTRO DA COMUNIDADE TEM SEU ID PRÓPRIO NAQUELA COMUNIDADE
-	
+    public Post(String autor, String tituloPost, String conteudo, int idPost) {
+        super(conteudo, autor);
+        this.tituloPost = tituloPost;
+        this.idPost = idPost;
+        this.comentarios = new ArrayList<>();
     }
 
+    public String getTituloPost() {
+        return tituloPost;
+    }
 
-	
+    public int getIdPost() {
+        return idPost;
+    }
+
+    public void criarEAdicionarComentario(String autor, String conteudo) {
+        Comentario novoComentario = new Comentario(autor, conteudo, proximoIdComentario++);
+        comentarios.add(novoComentario);
+        exibirComentarios();
+    }
+
+    public void exibirComentarios() {
+        System.out.println("\nComentários do Post: " + ANSI_RED + this.tituloPost + ANSI_RESET);
+        if (comentarios.isEmpty()) {
+            System.out.println("Este post ainda não possui comentários.");
+        } else {
+            for (Comentario comentario : comentarios) {
+                System.out.print("[" + comentario.getIdComentario() + "] - ");
+                System.out.print(ANSI_RED + comentario.getAutor() + ANSI_RESET + "\t");
+                System.out.println(comentario.getDataPublicacao());
+                System.out.println(comentario.getConteudo());
+                System.out.println("---------------------------------------");
+            }
+        }
+    }
+
+    public int getQntdComentarios() {
+        return comentarios.size();
+    }
+
+    public void exibirResumoDeComentarios() {
+        System.out.println("Total de comentários: " + getQntdComentarios());
+    }
+}
