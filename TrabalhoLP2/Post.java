@@ -29,9 +29,12 @@ public class Post extends Conteudo{
 		return tituloPost;
 	}
 
+
 	public int getIdPost() {
 		return idPost;
 	}
+
+	//Podemos fazer algo com o ID POST para comentar no post que desejamos
 
 //	public static ArrayList<Post> getPosts() {
 //		return posts;

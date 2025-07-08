@@ -15,6 +15,7 @@ public class SistemaComunidade {
     List<Comunidade> comunidades = new ArrayList<>();
 
     {
+        //Inicio a lista de Comunidades
         for (CategoriasComunidade cat : CategoriasComunidade.values()) {
             comunidades.add(new Comunidade(cat));
         }
@@ -30,7 +31,7 @@ public class SistemaComunidade {
             comunidades.get(i).exibirResumo();
             System.out.println("--------------------------------------------------------------");
         }
-        System.out.println("==========================================================");
+        System.out.println("==========================================================\n");
     }
     public void carregarPostsDeArquivo(String nomeDoArquivo) {
         System.out.println("Iniciando carregamento de posts do arquivo: " + nomeDoArquivo);
@@ -50,6 +51,8 @@ public class SistemaComunidade {
                     while ((linha = leitor.readLine()) != null && !linha.equals("---FIMPOST---")) {}
                     continue;
                 }
+
+                // Acho que aqui podemos criar uma verificação se o usuário está logado ou está dentre nosso "banco de usuarios"  isso
 
                 // Segunda linha Autor
                 String autor = leitor.readLine();
@@ -87,8 +90,6 @@ public class SistemaComunidade {
         }
 
         Comunidade comunidadeEscolhida = comunidades.get(opcao - 1);
-        // Adiciono o usuario na comunidade escolhida
-        comunidadeEscolhida.adicionarMembro(usuario);
         System.out.printf("\nOlá %s bem vindo a Comunidade %s\n", usuario.getNome(), comunidadeEscolhida.getCategoria().name());
 
         System.out.println("O que você deseja fazer?");
@@ -103,7 +104,7 @@ public class SistemaComunidade {
             System.out.println("Digite o conteúdo do Post");
             String conteudo = scanner.nextLine();
 
-            Post novoPost = new Post( usuario.getNome(), titulo,conteudo);
+            Post novoPost = new Post( usuario.getNome(), conteudo,titulo);
              comunidadeEscolhida.adicionarPost(novoPost);
         }
         if(acao.toLowerCase().equals("ver")){
