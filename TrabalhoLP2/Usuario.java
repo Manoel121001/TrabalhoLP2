@@ -10,92 +10,96 @@ import java.util.ArrayList;
 
 public class Usuario {
 
-	private static int proximoId = 1;
-	private int id;
     private String nome;
-//    public static Usuario usuarioLogado = null;
-//    private static ArrayList<Usuario> usuarios = new ArrayList<>();
-//    private static Scanner scanner = new Scanner(System.in);
-//
-	public Usuario(String nome) {
-		this.id = proximoId++;
-		this.nome = nome;
-	}
-	
-	public int getId() {
-		return id;
-	}
+    public static Usuario usuarioLogado = null;
+    private static ArrayList<Usuario> usuarios = new ArrayList<>();
+    private static Scanner scanner = new Scanner(System.in);
 
-	public String getNome() {
-		return nome;
-	}
+    public Usuario(String nome) {
+        this.nome = nome;
+    }
 
-//	public static ArrayList<Usuario> getUsuarios() {
-//		return usuarios;
-//	}
+    public String getNome() {
+        return nome;
+    }
 
-//	public static boolean login() {
-//	    System.out.println("Login - digite seu nome de usuário:");
-//	    String nomeLogin = scanner.nextLine();
-//
-//	    try (BufferedReader reader = new BufferedReader(new FileReader("Usuario.txt"))) {
-//	        String linha;
-//	        while ((linha = reader.readLine()) != null) {
-//	            String[] partes = linha.split("\\|");
-//	            if (partes.length == 2) {
-//	                String nomeExistente = partes[1];
-//	                if (nomeExistente.equalsIgnoreCase(nomeLogin)) {
-//	                	usuarioLogado = new Usuario(Integer.parseInt(partes[0]), nomeExistente);
-//	                    System.out.println("Login realizado com sucesso.");
-//	                    return true;
-//	                }
-//	            }
-//	        }
-//	    } catch (IOException e) {
-//
-//	    }
-//	    System.out.println("Usuário não encontrado.");
-//	    return false;
-//	}
-//
-//	public static boolean criarConta() {
-//
-//		System.out.println("Digite um nome de usuário para criar a conta:");
-//		String novoNome = scanner.nextLine();
-//
-//		usuarios.clear();
-//		try (BufferedReader reader = new BufferedReader(new FileReader("Usuario.txt"))) {
-//		    String linha;
-//		    while ((linha = reader.readLine()) != null) {
-//		        String[] partes = linha.split("\\|");
-//		        int idExistente = Integer.parseInt(partes[0]);
-//		        String nomeExistente = partes[1];
-//		        usuarioLogado = new Usuario(Integer.parseInt(partes[0]), nomeExistente);
-//		        usuarios.add(new Usuario(idExistente, nomeExistente));
-//		    }
-//		} catch (IOException e) {
-//
-//		}
-//
-//		for (int i = 0; i < usuarios.size(); i++) {
-//		    if (usuarios.get(i).getNome().equalsIgnoreCase(novoNome)) {
-//		        System.out.println("Nome de usuário já existe.");
-//		        return false;
-//		    }
-//		}
-//
-//		int novoId = usuarios.size() + 1;
-//		Usuario novoUsuario = new Usuario(novoId, novoNome);
-//        usuarios.add(novoUsuario);
-//
-//        try (BufferedWriter writer = new BufferedWriter(new FileWriter("Usuario.txt", true))) {
-//            writer.write(novoId + "|" + novoNome + "\n");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        System.out.println("Conta criada com sucesso.");
-//        return true;
-//
-//	}
+    public static ArrayList<Usuario> getUsuarios() {
+        return usuarios;
+    }
 
+    public static void menuUsuario() {
+        System.out.println("Seja bem-vindo ao LP2Reddit!");
+        System.out.println("Para criar uma conta digite 'criar'");
+        System.out.println("Já tem uma conta? Então digite 'login'");
+        String resposta = scanner.nextLine().toLowerCase();
+
+        if (resposta.equals("login")) {
+            login();
+        } else if (resposta.equals("criar")) {
+            criarConta();
+        } else {
+            System.out.println("Opção inválida.");
+            menuUsuario();
+            return;
+        }
+    }
+
+    public static void login() {
+        System.out.println("Digite seu nome de usuário:");
+        String nomeLogin = scanner.nextLine().trim();
+
+        try (BufferedReader leitor = new BufferedReader(new FileReader("Usuario.txt"))) {
+            String linha;
+            while ((linha = leitor.readLine()) != null) {
+                String nome = linha.trim();
+                if (nome.equalsIgnoreCase(nomeLogin)) {
+                	usuarioLogado = new Usuario(nome);
+                    System.out.println("Login realizado com sucesso.");
+                    return;
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Erro ao ler o arquivo de usuários.");
+            login();
+            return;
+        }
+
+        System.out.println("Usuário não encontrado.");
+        login();
+        return;
+    }
+
+    public static void criarConta() {
+        System.out.println("Digite um nome de usuário para criar a conta:");
+        String novoNome = scanner.nextLine().trim();
+
+        // Recarrega os usuários do arquivo para verificar duplicatas
+        usuarios.clear();
+        try (BufferedReader leitor = new BufferedReader(new FileReader("Usuario.txt"))) {
+            String linha;
+            while ((linha = leitor.readLine()) != null) {
+                usuarios.add(new Usuario(linha.trim()));
+            }
+        } catch (IOException e) {
+
+        }
+
+        for (Usuario u : usuarios) {
+            if (u.getNome().equalsIgnoreCase(novoNome)) {
+                System.out.println("Nome de usuário já existe.");
+                criarConta();
+                return;
+            }
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("Usuario.txt", true))) {
+            writer.write(novoNome + "\n");
+            usuarioLogado = new Usuario(novoNome);
+            System.out.println("Conta criada com sucesso.");
+        } catch (IOException e) {
+            System.err.println("Erro ao escrever no arquivo de usuários.");
+            criarConta();
+            return;
+        }          
+    }
 }
