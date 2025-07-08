@@ -66,8 +66,8 @@ public class SistemaComunidade {
                 }
 
                 // Cria o post e adiciona na comunidade encontrada
-                Post novoPost = new Post(autor, titulo, conteudoBuilder.toString().trim());
-                comunidadeAlvo.adicionarPost(novoPost); // Adiciona o post do arquivo na comunidade
+                comunidadeAlvo.criarEAdicionarPost(autor, titulo, conteudoBuilder.toString().trim());
+
             }
             System.out.println("Carregamento de posts concluído com sucesso!");
         } catch (IOException e) {
@@ -87,6 +87,7 @@ public class SistemaComunidade {
     public void gerenciarComunidade (int opcao, Usuario usuario){
         while (opcao<1 || opcao>comunidades.size()){
             System.out.println("Opção inválida! Escolha um número presente na lista.");
+
         }
 
         Comunidade comunidadeEscolhida = comunidades.get(opcao - 1);
@@ -104,8 +105,8 @@ public class SistemaComunidade {
             System.out.println("Digite o conteúdo do Post");
             String conteudo = scanner.nextLine();
 
-            Post novoPost = new Post( usuario.getNome(),titulo, conteudo);
-             comunidadeEscolhida.adicionarPost(novoPost);
+            comunidadeEscolhida.criarEAdicionarPost( usuario.getNome(),titulo, conteudo);
+
         }
         if(acao.toLowerCase().equals("ver")){
             comunidadeEscolhida.exibirPosts();

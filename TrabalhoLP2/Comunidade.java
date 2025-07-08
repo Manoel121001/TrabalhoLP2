@@ -7,6 +7,7 @@ public class Comunidade {
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_RESET = "\u001B[0m";
     private final CategoriasComunidade categoria;
+    private int proximoIdPost = 1;
     private List<Post> posts;
     private static Scanner scanner = new Scanner(System.in);
 
@@ -21,9 +22,10 @@ public class Comunidade {
     }
 
 
-    public void adicionarPost(Post novoPost){
 
-        this.posts.add(novoPost);
+    public void criarEAdicionarPost(String autor, String titulo, String conteudo) {
+        Post novoPost = new Post(autor, titulo, conteudo, proximoIdPost++);
+        posts.add(novoPost);
         exibirPosts();
     }
 
@@ -34,7 +36,7 @@ public class Comunidade {
         }
         else{
             for (Post post : this.posts){
-
+                System.out.print("["+post.getIdPost()+"] - ");
                 System.out.print(ANSI_RED + post.getAutor()+ANSI_RESET+"\t");
                 System.out.println(post.getDataPublicacao());
                 System.out.println(ANSI_RED+post.getTituloPost()+ANSI_RESET);
