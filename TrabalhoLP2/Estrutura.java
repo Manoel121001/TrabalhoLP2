@@ -1,4 +1,4 @@
-package module;
+package TrabalhoLP2;
 
 public class Estrutura {
 	
