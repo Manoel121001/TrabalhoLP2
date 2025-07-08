@@ -12,7 +12,7 @@ public class Main {
        usuarioList.add(usuarioX);
 
     SistemaComunidade sistemaTeste = new SistemaComunidade();
-
+    sistemaTeste.carregarPostsDeArquivo("TrabalhoLP2-main/teste.txt");
     sistemaTeste.menuComunidades();
     Scanner escolha = new Scanner(System.in);
     int escolha1 = escolha.nextInt();

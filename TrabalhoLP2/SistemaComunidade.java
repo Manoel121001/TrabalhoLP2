@@ -72,7 +72,7 @@ public class SistemaComunidade {
             System.out.println("Carregamento de posts concluído com sucesso!");
         } catch (IOException e) {
             System.err.println("ERRO AO LER O ARQUIVO: Não foi possível encontrar ou ler o arquivo '" + nomeDoArquivo + "'. Verifique se ele está na pasta raiz do projeto.");
-            // e.printStackTrace(); // Descomente para ver o erro detalhado
+             e.printStackTrace();
         }
     }
     private Comunidade encontrarComunidadePorNome(String nome) {
@@ -104,7 +104,7 @@ public class SistemaComunidade {
             System.out.println("Digite o conteúdo do Post");
             String conteudo = scanner.nextLine();
 
-            Post novoPost = new Post( usuario.getNome(), conteudo,titulo);
+            Post novoPost = new Post( usuario.getNome(),titulo, conteudo);
              comunidadeEscolhida.adicionarPost(novoPost);
         }
         if(acao.toLowerCase().equals("ver")){

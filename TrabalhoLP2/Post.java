@@ -18,7 +18,7 @@ public class Post extends Conteudo{
 //    private static ArrayList<Comentarios> comentarios = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
   
-    public Post(String autor, String subtexto, String tituloPost) {
+    public Post(String autor, String tituloPost, String subtexto) {
 		super(autor, subtexto);
 		this.tituloPost = tituloPost;
 		this.idPost = proximoId++;
