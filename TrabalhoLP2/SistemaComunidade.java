@@ -104,6 +104,7 @@ public class SistemaComunidade {
         System.out.println("O que você deseja fazer?");
         System.out.println("Para adicionar um novo post escreva 'adicionar' ");
         System.out.println("Para ver todos os posts escreva 'ver' ");
+        System.out.println("Para sair da comunidade escreva 'sair' ");
         String acao = scanner.nextLine();
         //Utilização do EQUALS
         if (acao.toLowerCase().equals("adicionar")){
@@ -114,11 +115,15 @@ public class SistemaComunidade {
             String conteudo = scanner.nextLine();
 
             comunidadeEscolhida.criarEAdicionarPost(usuario.getNome(),titulo, conteudo);
-
-        }
-        if(acao.toLowerCase().equals("ver")){
+            
             comunidadeEscolhida.exibir();
         }
-
+        else if(acao.toLowerCase().equals("ver")){
+            comunidadeEscolhida.exibir();
+        }
+        else if(acao.toLowerCase().equals("sair")){
+        	menuComunidades();
+            return;
+        }
     }
 }

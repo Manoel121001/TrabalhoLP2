@@ -26,7 +26,6 @@ public class SistemaPosts {
                 post.exibir();
             } else if (resposta.equals("sair")) {
                 System.out.println("Saindo do menu de comentários...");
-                menuComentario(post, usuario);
                 return;
             } else {
                 System.out.println("Comando inválido. Tente novamente.");
