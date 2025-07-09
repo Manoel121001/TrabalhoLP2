@@ -48,7 +48,7 @@ public class Usuario {
 		System.out.println("Digite seu nome de usuário:");
 		String nomeLogin = scanner.nextLine().trim();
 
-		try (BufferedReader leitor = new BufferedReader(new FileReader("Usuario.txt"))) {
+		try (BufferedReader leitor = new BufferedReader(new FileReader("src/TrabalhoLP2/Usuario.txt"))) {
 			String linha;
 			while ((linha = leitor.readLine()) != null) {
 				String nome = linha.trim();
@@ -75,7 +75,7 @@ public class Usuario {
 
 		// Recarrega os usuários do arquivo para verificar duplicatas
 		usuarios.clear();
-		try (BufferedReader leitor = new BufferedReader(new FileReader("Usuario.txt"))) {
+		try (BufferedReader leitor = new BufferedReader(new FileReader("src/TrabalhoLP2/Usuario.txt"))) {
 			String linha;
 			while ((linha = leitor.readLine()) != null) {
 				usuarios.add(new Usuario(linha.trim()));
@@ -92,7 +92,7 @@ public class Usuario {
 			}
 		}
 
-		try (BufferedWriter writer = new BufferedWriter(new FileWriter("Usuario.txt", true))) {
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/TrabalhoLP2/Usuario.txt", true))) {
 			writer.write(novoNome + "\n");
 			usuarioLogado = new Usuario(novoNome);
 			System.out.println("Conta criada com sucesso.");

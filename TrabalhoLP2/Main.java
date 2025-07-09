@@ -9,7 +9,7 @@ public class Main {
        SistemaPosts sistemaPosts = new SistemaPosts();
 
        Usuario.menuUsuario();
-       sistemaComunidade.carregarPostsDeArquivo("teste.txt");
+       sistemaComunidade.carregarPostsDeArquivo("src/TrabalhoLP2/teste.txt");
 
        sistemaComunidade.menuComunidades();
        int escolhaComunidade = scanner.nextInt();
@@ -27,7 +27,7 @@ public class Main {
        sistemaComunidade.gerenciarComunidade(escolhaComunidade, Usuario.usuarioLogado);
 
        // Agora o usuário escolhe um post pelo ID para comentar/ver
-       System.out.println("Digite o ID do post que deseja comentar ou ver comentários:");
+       System.out.println("\nDigite o ID do post que deseja comentar ou ver comentários:");
        int escolhaPost = scanner.nextInt();
        scanner.nextLine(); // consumir quebra de linha
 

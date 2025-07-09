@@ -7,12 +7,10 @@ public class Conteudo {
     protected String autor;
     protected String conteudo;
     protected String dataPublicacao;
-    protected int id;
 
-    public Conteudo(String conteudo, String autor, int id) {
+    public Conteudo(String conteudo, String autor) {
         this.autor = autor;
         this.conteudo = conteudo;
-        this.id = id;
 
         // Lógica da DATA para não ficar criando sempre a data tudo que for conteudo herda
         // da class conteudo esse sistema de data para data da publicação
@@ -21,10 +19,8 @@ public class Conteudo {
         this.dataPublicacao = hora.format(formatador);
     }
 
-
     public String getConteudo(){return conteudo;}
     public String getAutor(){return autor;}
     public String getDataPublicacao(){return dataPublicacao;}
-    public int getId(){return id;}
-
+    public void setDataPublicacao(String dataPublicacao) {this.dataPublicacao = dataPublicacao;}
 }

@@ -2,7 +2,7 @@ package TrabalhoLP2;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Comunidade implements Exibivel   {
+public class Comunidade {
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_RESET = "\u001B[0m";
     private final CategoriasComunidade categoria;
@@ -22,7 +22,6 @@ public class Comunidade implements Exibivel   {
     public void criarEAdicionarPost(String autor, String titulo, String conteudo) {
         Post novoPost = new Post(autor, titulo, conteudo, proximoIdPost++);
         posts.add(novoPost);
-//        exibirPosts();
     }
 
     public void exibir(){
@@ -32,18 +31,19 @@ public class Comunidade implements Exibivel   {
         }
         else{
             for (Post post : this.posts){
-                System.out.print("["+post.getId()+"] - ");
+                System.out.print("["+post.getIdPost()+"] - ");
                 System.out.print(ANSI_RED + post.getAutor()+ANSI_RESET+"\t");
                 System.out.println(post.getDataPublicacao());
                 System.out.println(ANSI_RED+post.getTituloPost()+ANSI_RESET);
                 System.out.println(post.getConteudo());
+                System.out.println("Quantidade de comentários: " + post.getQntdComentarios());
             }
         }
     }
     
     public Post getPostPorId(int id) {
         for (Post post : posts) {
-            if (post.getId() == id) {
+            if (post.getIdPost() == id) {
                 return post;
             }
         }
@@ -57,7 +57,7 @@ public class Comunidade implements Exibivel   {
     public void exibirResumo(){
         System.out.println("Comunidade: "+ categoria.name());
         System.out.println("Descrição: " + categoria.getDescricao());
-        System.out.println("Quantidade atual de Posts: " + getQntdPosts());
+        System.out.println("Quantidade de Posts: " + getQntdPosts());
     }
 
 }

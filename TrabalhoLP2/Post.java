@@ -2,6 +2,8 @@ package TrabalhoLP2;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Post extends Conteudo implements Exibivel {
     public static final String ANSI_RED = "\u001B[31m";
@@ -9,20 +11,29 @@ public class Post extends Conteudo implements Exibivel {
 
     private String tituloPost;
     private int idPost;
+    private String dataPublicacao;
     private int proximoIdComentario = 1;
     private List<Comentario> comentarios;
 
     public Post(String autor, String tituloPost, String conteudo, int idPost) {
-        super(conteudo, autor, idPost);
+        super(conteudo, autor);
         this.tituloPost = tituloPost;
+        this.idPost = idPost;
+        this.dataPublicacao = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
         this.comentarios = new ArrayList<>();
+    }
+
+    public String getDataPublicacao() {
+        return dataPublicacao;
     }
 
     public String getTituloPost() {
         return tituloPost;
     }
 
-
+    public int getIdPost() {
+        return idPost;
+    }
 
     public void criarEAdicionarComentario(String autor, String conteudo) {
         Comentario novoComentario = new Comentario(autor, conteudo, proximoIdComentario++);
@@ -31,12 +42,12 @@ public class Post extends Conteudo implements Exibivel {
     }
 
     public void exibir() {
-        System.out.println("\nComentários do Post: " + ANSI_RED + this.tituloPost + ANSI_RESET);
+        System.out.println("\n=========== COMENTÁRIOS ===========");
         if (comentarios.isEmpty()) {
             System.out.println("Este post ainda não possui comentários.");
         } else {
             for (Comentario comentario : comentarios) {
-                System.out.print("[" + comentario.getId() + "] - ");
+                System.out.print("[" + comentario.getIdComentario() + "] - ");
                 System.out.print(ANSI_RED + comentario.getAutor() + ANSI_RESET + "\t");
                 System.out.println(comentario.getDataPublicacao());
                 System.out.println(comentario.getConteudo());
@@ -47,9 +58,5 @@ public class Post extends Conteudo implements Exibivel {
 
     public int getQntdComentarios() {
         return comentarios.size();
-    }
-
-    public void exibirResumoDeComentarios() {
-        System.out.println("Total de comentários: " + getQntdComentarios());
     }
 }
