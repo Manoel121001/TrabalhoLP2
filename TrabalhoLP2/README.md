@@ -1,2 +1,0 @@
-# TrabalhoLP2
-RedditJava
